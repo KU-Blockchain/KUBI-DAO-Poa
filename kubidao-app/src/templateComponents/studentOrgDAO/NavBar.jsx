@@ -12,14 +12,14 @@ const Navbar = () => {
     <Box bg="black" p={2.5} alignItems={"center"} >
       <Flex
         alignItems="center"
-        h="60px"
+        h="70px"
         maxW="100%"
         justifyContent="space-between"
       >
-        <Box   h="100%" w="12%" mr={{ base: "2", md: "4" }}>
+        <Box   h="100%" w="12%" pb={2} pl={10} mr={{ base: "4", md: "14" }}>
           <Link as={NextLink} href={`/home`} passHref>
             <Image
-              src="/images/high_res_poa.png"
+              src="/images/kubi_white_logo.png"
               alt="Your Logo"
               height="113%"
               width="auto"
