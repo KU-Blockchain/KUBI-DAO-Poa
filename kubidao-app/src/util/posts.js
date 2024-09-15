@@ -5,7 +5,7 @@ import remarkMath from 'remark-math';
 import remarkRehype from 'remark-rehype';
 import rehypeKatex from 'rehype-katex';
 import rehypeStringify from 'rehype-stringify';
-import 'katex/dist/katex.min.css'; // Make sure to import this in your component or global CSS
+//import 'katex/dist/katex.min.css'; // Make sure to import this in your component or global CSS
 import remarkGfm from 'remark-gfm';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
