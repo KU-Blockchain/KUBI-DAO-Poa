@@ -83,9 +83,11 @@ const PerpetualOrgDashboard = () => {
 
   useEffect(() => {
     const fetchImage = async () => {
+      console.log("logoHash", logoHash);
       if (logoHash && !imageFetched) {
         const imageUrlFetch = await fetchImageFromIpfs(logoHash);
         setImageURL(imageUrlFetch);
+        console.log("imageUrlFetch", imageUrlFetch);
         setImageFetched(true);
       }
     };
@@ -169,7 +171,7 @@ const PerpetualOrgDashboard = () => {
                 </VStack>
                 <HStack spacing={4} justify="space-between" w="100%" p="2">
                   <Box pl="12px">
-                    <Image mb="0" src={imageURL} alt="Organization Logo" width="220px" />
+                    <Image mb="0" src={"/images/kubi_logo.png"} alt="Organization Logo" width="220px" />
                   </Box>
                   <VStack ml="2" align="flex-start" pr="10px" spacing={2} w="100%">
                     <Box>
