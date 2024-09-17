@@ -16,6 +16,7 @@ import {
   Badge,
   Spinner,
   Center,
+  Button,
 } from '@chakra-ui/react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
@@ -30,6 +31,7 @@ import OngoingPolls from '@/components/userPage/OngoingPolls';
 import UserProposals from '@/components/userPage/UserProposals';
 import { useRouter } from 'next/router';
 import Navbar from "@/templateComponents/studentOrgDAO/NavBar";
+import ExecutiveMenuModal from '@/components/profileHub/ExecutiveMenuModal'; 
 
 const UserprofileHub = () => {
 
@@ -48,6 +50,11 @@ const UserprofileHub = () => {
   const [showDevMenu, setShowDevMenu] = useState(false);
   const [isSettingsModalOpen, setSettingsModalOpen] = useState(false);
   const [notLoaded, setNotLoaded] = useState(true);
+
+  const [isExecutiveMenuOpen, setExecutiveMenuOpen] = useState(false);
+
+  const openExecutiveMenu = () => setExecutiveMenuOpen(true);
+  const closeExecutiveMenu = () => setExecutiveMenuOpen(false);
   
 
   const glassLayerStyle = {
@@ -250,11 +257,29 @@ const UserprofileHub = () => {
                     </HStack>
                   </VStack>
                   <Spacer />
+                  <VStack mt="1" align={'flex-start'} spacing={3}>
                   <Box mt="2" alignSelf="flex-start" mr="3">
                     <ConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
+
                   </Box>
+
+                  <Button 
+                      size="sm"
+                      onClick={openExecutiveMenu}
+                      alignSelf="start"
+                      justifySelf="end"
+                      colorScheme="teal"
+                    >
+                      Executive Menu
+                    </Button>
+                    <ExecutiveMenuModal isOpen={isExecutiveMenuOpen} onClose={closeExecutiveMenu} />
+                  </VStack>
+                  
                 </HStack>
+
+                
               </Box>
+              
               <Box w="100%" pt={4} borderRadius="2xl" bg="transparent" position="relative" zIndex={2}>
                 <div style={glassLayerStyle} />
                 <VStack pb={2} align="flex-start" position="relative" borderTopRadius="2xl">
