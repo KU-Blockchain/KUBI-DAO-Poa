@@ -71,7 +71,7 @@ const WaveBackground = styled.div`
   width: calc(100% + 150px);
   height: 100%;
   z-index: 0;
-  animation: ${waveAnimation} 5s ease-in-out infinite;
+  animation: ${waveAnimation} 6s ease-in-out infinite;
 `;
 
 const FloatingBox = styled.div`
@@ -85,7 +85,7 @@ const FloatingBox = styled.div`
   position: relative;
   zIndex: 1;
   margin-top: 7%;
-  animation: ${floatingAnimation} 3s ease-in-out infinite;
+  animation: ${floatingAnimation} 3.5s ease-in-out infinite;
 `;
 
 const Home = () => {
@@ -102,8 +102,8 @@ const Home = () => {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <defs>
               <linearGradient id="waveGradient" x1="0" y1="0" x2="0" y2="100%">
-                <stop offset="0%" stopColor="#D6BCFA" />
-                <stop offset="100%" stopColor="#6495ED00" />
+                <stop offset="0%" stopColor="#E8000D" />
+                <stop offset="100%" stopColor="#E8000D00" />
               </linearGradient>
             </defs>
             <path
@@ -114,8 +114,8 @@ const Home = () => {
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <defs>
               <linearGradient id="waveGradient" x1="0" y1="0" x2="0" y2="100%">
-                <stop offset="0%" stopColor="#D6BCFA0" />
-                <stop offset="100%" stopColor="#6495ED00" />
+                <stop offset="0%" stopColor="#E8000D" />
+                <stop offset="100%" stopColor="#E8000D00" />
               </linearGradient>
             </defs>
             <path

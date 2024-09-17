@@ -52,7 +52,7 @@ const theme = extendTheme({
     global: {
      
       body: {
-        bgGradient: "linear(to-r, orange.200, pink.200)",
+        bg: "#2d86fff7",
         color: "#001443",
       },
       
