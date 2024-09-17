@@ -195,7 +195,7 @@ const UserprofileHub = () => {
                     src={
                       userInfo.tier
                         ? (userInfo.tier === 'Basic'
-                          ? "/images/high_res_poa.png"
+                          ? "/images/kubi_white_logo.png"
                           : `/images/${userInfo.tier.toLowerCase()}Medal.png`)
                         : "/images/high_res_poa.png"
                     }
