@@ -264,12 +264,6 @@ const PerpetualOrgDashboard = () => {
                   </HStack>
 
                   <HStack spacing={2}>
-                    <Text mt="-1" fontSize="lg" fontWeight="bold">
-                      Treasury Balance:
-                    </Text>
-                    <Text mt="-1" fontSize="lg">
-                      $12345
-                    </Text>
                   </HStack>
                 </VStack>
 
