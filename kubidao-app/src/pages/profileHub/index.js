@@ -111,6 +111,8 @@ const UserprofileHub = () => {
 
   const [userInfo, setUserInfo] = useState({});
 
+  const [isExec, setIsExec] = useState(false);
+
   useEffect(() => {
     if (userData) {
       console.log(userData);
@@ -129,6 +131,10 @@ const UserprofileHub = () => {
         nextTierThreshold: progressData.nextTierThreshold
       };
       setUserInfo(userInfo);
+
+      if (userInfo.memberStatus === "Executive") {
+        setIsExec(true);
+      }
     }
   }, [userData, graphUsername]);
 
@@ -261,23 +267,24 @@ const UserprofileHub = () => {
                   <Box mt="2" alignSelf="flex-start" mr="3">
                     <ConnectButton showBalance={false} chainStatus="icon" accountStatus="address" />
 
-                  </Box>
-
-                  <Button 
-                      size="sm"
-                      onClick={openExecutiveMenu}
-                      alignSelf="start"
-                      justifySelf="end"
-                      colorScheme="teal"
-                    >
-                      Executive Menu
-                    </Button>
-                    <ExecutiveMenuModal isOpen={isExecutiveMenuOpen} onClose={closeExecutiveMenu} />
-                  </VStack>
+                    </Box>
+                      {isExec && (
+                        <>
+                          <Button 
+                            size="sm"
+                            onClick={openExecutiveMenu}
+                            alignSelf="start"
+                            justifySelf="end"
+                            colorScheme="teal"
+                          >
+                            Executive Menu
+                          </Button>
+                          <ExecutiveMenuModal isOpen={isExecutiveMenuOpen} onClose={closeExecutiveMenu} />
+                        </>
+                      )}
+                      </VStack>
                   
                 </HStack>
-
-                
               </Box>
               
               <Box w="100%" pt={4} borderRadius="2xl" bg="transparent" position="relative" zIndex={2}>
