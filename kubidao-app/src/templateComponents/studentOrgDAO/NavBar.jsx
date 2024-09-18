@@ -58,6 +58,16 @@ const Navbar = () => {
           >
             Voting
           </Link>
+          <Link
+            as={NextLink}
+            href={`/edu-Hub`}
+            color="white"
+            fontWeight="extrabold"
+            fontSize="xl"
+            mx={"2%"}
+          >
+            Edu Hub
+          </Link>
           <LoginButton />
         </Flex>
       </Flex>

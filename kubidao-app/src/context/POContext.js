@@ -59,6 +59,9 @@ export const POProvider = ({ children }) => {
     , [address]);
 
     const combinedID = `${poName}-${account?.toLowerCase()}`;
+    // make the combined id into a set state with a use effect
+    // then use that state in the query
+
 
 
 
@@ -68,6 +71,7 @@ export const POProvider = ({ children }) => {
         fetchPolicy: 'cache-first',
         onCompleted: () => {
             console.log('Query po context completed successfully');
+        
         },
     });
 
