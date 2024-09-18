@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, Spinner, Center, Grid, GridItem, Heading, Text, Link, Flex } from '@chakra-ui/react';
+import { Box, Spinner, Center, Grid, GridItem, Heading, Text, Link, Flex, Button } from '@chakra-ui/react';
 import Navbar from "@/templateComponents/studentOrgDAO/NavBar";
 import { usePOContext } from '@/context/POContext';
 import QuizModal from '@/components/eduHub/QuizModal';
@@ -24,7 +24,7 @@ const EducationHub = () => {
       title: 'Intro to DAOs',
       link: 'https://example.com/dao-intro',
       payout: '10 Tokens',
-      description: 'Learn about the basics of DAOs',
+      description: 'Learn about the basics of DAOs Testing length of description im gonna see how long looks ok and what i should maybe limi a description too lets seeee loinge longer longer longer longer logner ',
       quizLink: '/quiz/dao-intro',
     },
     {
@@ -64,18 +64,23 @@ const EducationHub = () => {
                   p={6}
                   sx={glassLayerStyle}  // Applying glass layer style here
                   transition="all 0.3s ease"
-                  _hover={{ transform: 'scale(1.05)', boxShadow: 'xl' }}
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="space-between" // Ensure space is distributed to push buttons down
                 >
-                  <Heading as="h3" size="md" mb={4} color="white">{model.title}</Heading>
-                  <Text mb={4} fontSize="lg" color="gray.200">Reward: {model.payout}</Text>
-                  <Text mb={4} fontSize="md" color="gray.300">{model.description}</Text> {/* Displaying description */}
-                  <Flex justifyContent="space-between" alignItems="center">
-                    <Link href={model.link} isExternal color="blue.300" fontWeight="bold">
-                      Learn More
-                    </Link>
-                    {/* Replace Take Quiz button with QuizModal */}
-                    <QuizModal quizId={model.id} />
-                  </Flex>
+                  <Box mb={6}>
+                    <Heading as="h3" size="lg" mb={6} color="white">{model.title}</Heading>
+                    <Text fontSize="md" color="gray.300">{model.description}</Text>
+                  </Box>
+                  <Box mt="auto">  {/* This ensures the reward stays at the bottom */}
+                    <Text mb={2} fontSize="lg" fontWeight={"bold"} color="white" >Reward: {model.payout}</Text>
+                    <Flex justifyContent="space-between" alignItems="center" mt={4}>
+                      <Link href={model.link} isExternal>
+                        <Button _hover={{ transform: 'scale(1.07)', boxShadow: 'xl' }} size={"lg"} colorScheme="green">Learn</Button>
+                      </Link>
+                      <QuizModal quizId={model.id} />
+                    </Flex>
+                  </Box>
                 </GridItem>
               ))}
             </Grid>
@@ -84,6 +89,8 @@ const EducationHub = () => {
       )}
     </>
   );
+  
+
 };
 
 export default EducationHub;

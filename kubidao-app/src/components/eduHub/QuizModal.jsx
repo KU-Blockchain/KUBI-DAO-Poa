@@ -13,7 +13,7 @@ const QuizModal = ({ quizId }) => {
 
     return (
         <>
-            <Button onClick={onOpen}>Take Quiz</Button>
+            <Button size={"sm"}  onClick={onOpen}>Take Quiz</Button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
