@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Box, Spinner, Center, Grid, GridItem, Heading, Text, Link, Flex } from '@chakra-ui/react';
-import MainLayout from '../../components/TaskManager/MainLayout';
-import { useDataBaseContext } from '@/context/dataBaseContext';
-import { useRouter } from 'next/router';
 import Navbar from "@/templateComponents/studentOrgDAO/NavBar";
 import { usePOContext } from '@/context/POContext';
 import QuizModal from '@/components/eduHub/QuizModal';
@@ -16,12 +13,9 @@ const glassLayerStyle = {
 };
 
 const EducationHub = () => {
-  const router = useRouter();
-  const { setSelectedProjectId, projects } = useDataBaseContext();
   const { poContextLoading } = usePOContext();
   const containerRef = useRef();
 
-  console.log(poContextLoading);
 
   // Sample education models
   const educationModels = [

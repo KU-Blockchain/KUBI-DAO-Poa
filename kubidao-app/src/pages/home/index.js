@@ -32,27 +32,6 @@ const waveAnimation = keyframes`
   }
 `;
 
-// CSS for the floating effect
-const floatingAnimation = keyframes`
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
-const waveBackgroundStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  zIndex: 0,
-};
 
 const glassLayerStyle = {
   position: 'absolute',
@@ -74,19 +53,6 @@ const WaveBackground = styled.div`
   animation: ${waveAnimation} 5s ease-in-out infinite;
 `;
 
-const FloatingBox = styled.div`
-  width: 60%;  
-  border-radius: 20px;
-  display: flex;
-  flexDirection: column;
-  background: rgba(0, 0, 0, 0.6); 
-  backdrop-filter: blur(20px);  
-  boxShadow: lg;
-  position: relative;
-  zIndex: 1;
-  margin-top: 7%;
-  animation: ${floatingAnimation} 3s ease-in-out infinite;
-`;
 
 const Home = () => {
   const{logoHash, poDescription, poLinks} = usePOContext();
