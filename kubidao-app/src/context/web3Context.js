@@ -44,10 +44,10 @@ export const Web3Provider = ({ children }) => {
     };
 
     useEffect(() => {
-        console.log("provider: ", provider )
-        console.log("address1: ", address)
+       if(address){
     
         setAccount(address);
+         }
     }, [address]);
 
     
