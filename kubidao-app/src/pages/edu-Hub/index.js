@@ -62,17 +62,17 @@ const EducationHub = () => {
                   key={model.id}
                   borderRadius="md"
                   p={6}
-                  sx={glassLayerStyle}  // Applying glass layer style here
+                  sx={glassLayerStyle}  
                   transition="all 0.3s ease"
                   display="flex"
                   flexDirection="column"
-                  justifyContent="space-between" // Ensure space is distributed to push buttons down
+                  justifyContent="space-between" 
                 >
                   <Box mb={6}>
                     <Heading as="h3" size="lg" mb={6} color="white">{model.title}</Heading>
                     <Text fontSize="md" color="gray.300">{model.description}</Text>
                   </Box>
-                  <Box mt="auto">  {/* This ensures the reward stays at the bottom */}
+                  <Box mt="auto">  
                     <Text mb={2} fontSize="lg" fontWeight={"bold"} color="white" >Reward: {model.payout}</Text>
                     <Flex justifyContent="space-between" alignItems="center" mt={4}>
                       <Link href={model.link} isExternal>
