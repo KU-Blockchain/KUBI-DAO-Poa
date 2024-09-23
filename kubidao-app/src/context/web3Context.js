@@ -53,7 +53,7 @@ export const Web3Provider = ({ children }) => {
     
     const { addToIpfs, fetchFromIpfs } = useIPFScontext();
 
-    const AccountManagerAddress = "0x31c0199106A68a46a98E68FD656e2bEadF5542F2";
+    const AccountManagerAddress = "0x2Cf8a12aCd03aBD1D2AEef1245c1c296216880D4";
 
     const getContractInstance = (contractAddress, contractABI) => {
         return new ethers.Contract(contractAddress, contractABI, signer);
