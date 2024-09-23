@@ -40,7 +40,7 @@ export const Web3Provider = ({ children }) => {
 
     const gasOptions = {
         gasLimit: 100000, // Example gas limit
-        gasPrice: ethers.utils.parseUnits('51', 'gwei'), 
+        gasPrice: ethers.utils.parseUnits('40', 'gwei'), 
     };
 
     useEffect(() => {
@@ -53,7 +53,7 @@ export const Web3Provider = ({ children }) => {
     
     const { addToIpfs, fetchFromIpfs } = useIPFScontext();
 
-    const AccountManagerAddress = "0x33DCAB56A777aF4e714477430d70D9832eeB7269";
+    const AccountManagerAddress = "0x9a282Af05DE793De9Bb1143cf2E6E91de0B4BBc3";
 
     const getContractInstance = (contractAddress, contractABI) => {
         return new ethers.Contract(contractAddress, contractABI, signer);
