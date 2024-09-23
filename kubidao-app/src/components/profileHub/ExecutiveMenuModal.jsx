@@ -15,12 +15,15 @@ import {
 } from '@chakra-ui/react';
 
 import { useWeb3Context } from "@/context/web3Context";
+import { usePOContext } from '@/context/POContext';
 
 const ExecutiveMenuModal = ({ isOpen, onClose }) => {
   const [addressToMint, setAddressToMint] = useState('');
   const [loading, setLoading] = useState(false);
   const { mintNFT } = useWeb3Context(); // Import the mintNFT function
   const toast = useToast();
+
+  const {nftMembershipContractAddress} = usePOContext();
 
   const handleMintNFT = async () => {
     if (!addressToMint) {
@@ -36,9 +39,9 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
 
     setLoading(true);
     try {
-      const contractAddress = "0xYourNFTContractAddress"; // Replace with the actual contract address
-      const membershipType = "Executive"; // Set membership type to "Executive"
-      await mintNFT(contractAddress, membershipType); // Mint the NFT
+      
+      const membershipType = "Executive"; 
+      await mintNFT(nftMembershipContractAddress, membershipType); 
       toast({
         title: "Success",
         description: `NFT minted for ${addressToMint}`,
@@ -57,7 +60,7 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
       });
     } finally {
       setLoading(false);
-      setAddressToMint(''); // Clear the input after minting
+      setAddressToMint(''); 
     }
   };
 
@@ -69,7 +72,6 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack spacing={4}>
-            {/* Input for address */}
             <Input
               placeholder="Enter Address to Mint Executive NFT"
               value={addressToMint}
