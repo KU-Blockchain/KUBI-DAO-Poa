@@ -32,8 +32,8 @@ export const Web3Provider = ({ children }) => {
     const provider = useEthersProvider();
     const signer = useEthersSigner();
 
-    // Define a uniform gas price of 40 Gwei
-    const GAS_PRICE = ethers.utils.parseUnits('40', 'gwei');
+
+    const GAS_PRICE = ethers.utils.parseUnits('45', 'gwei');
 
     useEffect(() => {
         console.log("provider: ", provider);
@@ -702,7 +702,7 @@ export const Web3Provider = ({ children }) => {
             const contract = getContractInstance(contractAddress, QuickJoin.abi);
 
             const gasEstimate = await contract.estimateGas.quickJoinNoUser(username);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(150).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
