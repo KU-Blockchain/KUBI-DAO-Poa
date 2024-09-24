@@ -35,7 +35,7 @@ export const Web3Provider = ({ children }) => {
     const signer = useEthersSigner();
 
 
-    const GAS_PRICE = ethers.utils.parseUnits('45', 'gwei');
+    const GAS_PRICE = ethers.utils.parseUnits('47', 'gwei');
 
     useEffect(() => {
         console.log("provider: ", provider);
