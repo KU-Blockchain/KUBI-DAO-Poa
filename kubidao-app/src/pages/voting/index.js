@@ -45,6 +45,8 @@ import HeadingVote from "@/templateComponents/studentOrgDAO/voting/header";
 import CountDown from "@/templateComponents/studentOrgDAO/voting/countDown";
 import PollModal from "@/templateComponents/studentOrgDAO/voting/pollModal";
 
+import { useAccount } from "wagmi";
+
 const glassLayerStyle = {
   position: "absolute",
   height: "100%",
@@ -58,6 +60,8 @@ const glassLayerStyle = {
 const Voting = () => {
   const router = useRouter();
   const userDAO = "KUBI";
+
+  const {address } = useAccount();
 
   const {
     createProposalDDVoting,
@@ -325,7 +329,7 @@ const Voting = () => {
           proposal.time,
           proposal.options,
           last ? proposal.transferOption : 0,
-          last ? proposal.transferAddress : account,
+          last ? proposal.transferAddress : address,
           last ? proposal.transferAmount : '0',
           last
         );
@@ -339,7 +343,7 @@ const Voting = () => {
           proposal.time,
           proposal.options,
           last ? proposal.transferOption : 0,
-          last ? proposal.transferAddress : account,
+          last ? proposal.transferAddress : address,
           last ? proposal.transferAmount : '0',
           last
         );
@@ -353,7 +357,7 @@ const Voting = () => {
           proposal.time,
           proposal.options,
           last ? proposal.transferOption : 0,
-          last ? proposal.transferAddress : account,
+          last ? proposal.transferAddress : address,
           last ? proposal.transferAmount : '0',
           last
         );
