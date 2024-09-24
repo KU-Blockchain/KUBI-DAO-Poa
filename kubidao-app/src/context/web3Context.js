@@ -32,6 +32,7 @@ export const Web3Provider = ({ children }) => {
     const provider = useEthersProvider();
     const signer = useEthersSigner();
 
+    // Define a uniform gas price of 40 Gwei
     const GAS_PRICE = ethers.utils.parseUnits('40', 'gwei');
 
     useEffect(() => {
@@ -852,7 +853,8 @@ export const Web3Provider = ({ children }) => {
             createProposalDDVoting,
             createNewUser,
             createEduModule,
-            checkIsExecutive
+            checkIsExecutive,
+            updateNFT
         }}>
             {children}
         </Web3Context.Provider>

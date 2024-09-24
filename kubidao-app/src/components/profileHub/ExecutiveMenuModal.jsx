@@ -20,10 +20,10 @@ import { usePOContext } from '@/context/POContext';
 const ExecutiveMenuModal = ({ isOpen, onClose }) => {
   const [addressToMint, setAddressToMint] = useState('');
   const [loading, setLoading] = useState(false);
-  const { mintNFT } = useWeb3Context(); // Import the mintNFT function
+  const { updateNFT } = useWeb3Context();
   const toast = useToast();
 
-  const {nftMembershipContractAddress} = usePOContext();
+    const {nftMembershipContractAddress} = usePOContext();
 
   const handleMintNFT = async () => {
     if (!addressToMint) {
@@ -36,12 +36,11 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
       });
       return;
     }
-
     setLoading(true);
     try {
       
       const membershipType = "Executive"; 
-      await mintNFT(nftMembershipContractAddress, membershipType); 
+      await updateNFT(nftMembershipContractAddress, addressToMint, membershipType);
       toast({
         title: "Success",
         description: `NFT minted for ${addressToMint}`,
@@ -63,7 +62,6 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
       setAddressToMint(''); 
     }
   };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -72,6 +70,7 @@ const ExecutiveMenuModal = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack spacing={4}>
+            {/* Input for address */}
             <Input
               placeholder="Enter Address to Mint Executive NFT"
               value={addressToMint}
