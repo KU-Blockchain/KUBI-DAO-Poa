@@ -35,7 +35,7 @@ export const Web3Provider = ({ children }) => {
     const signer = useEthersSigner();
 
 
-    const GAS_PRICE = ethers.utils.parseUnits('45', 'gwei');
+    const GAS_PRICE = ethers.utils.parseUnits('47', 'gwei');
 
     useEffect(() => {
         console.log("provider: ", provider);
@@ -72,7 +72,7 @@ export const Web3Provider = ({ children }) => {
     const getGasOptions = async (contractMethod, args = []) => {
         try {
             const gasEstimate = await contractMethod(...args).then(tx => tx.estimateGas());
-            const gasLimit = gasEstimate.mul(120).div(100); // Add 20% buffer
+            const gasLimit = gasEstimate.mul(127).div(100); // Add 20% buffer
             return {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -98,7 +98,7 @@ export const Web3Provider = ({ children }) => {
         try {
             // Estimate gas
             const gasEstimate = await contract.estimateGas.registerAccount(username);
-            const gasLimit = gasEstimate.mul(120).div(100); // Add 20% buffer
+            const gasLimit = gasEstimate.mul(127).div(100); // Add 20% buffer
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -122,7 +122,7 @@ export const Web3Provider = ({ children }) => {
         try {
             // Estimate gas
             const gasEstimate = await contract.estimateGas.changeUsername(username);
-            const gasLimit = gasEstimate.mul(120).div(100); // Add 20% buffer
+            const gasLimit = gasEstimate.mul(127).div(100); // Add 20% buffer
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -153,7 +153,7 @@ export const Web3Provider = ({ children }) => {
                 canSend,
                 tokenAddress
             );
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -183,7 +183,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.vote(proposalID, voterAddress, optionIndex);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -230,7 +230,7 @@ export const Web3Provider = ({ children }) => {
                 candidateAddresses,
                 candidateNames
             );
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -258,22 +258,31 @@ export const Web3Provider = ({ children }) => {
         }
     }
 
-    async function ddVote(contractAddress, proposalID, optionIndex) {
+    async function ddVote(contractAddress, proposalID, optionIndices, weights) {
         if (!checkNetwork()) {
             return;
         }
+        
         const voterAddress = account;
         const contract = getContractInstance(contractAddress, DirectDemocracyVoting.abi);
-
+        
         try {
-            const gasEstimate = await contract.estimateGas.vote(proposalID, voterAddress, optionIndex);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            // Ensure the total weight is 100
+            const totalWeight = weights.reduce((a, b) => a + b, 0);
+            if (totalWeight !== 100) {
+                throw new Error("Total weight must sum to 100");
+            }
+    
+            // Estimate gas
+            const gasEstimate = await contract.estimateGas.vote(proposalID, voterAddress, optionIndices, weights);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
             };
-
-            const tx = await contract.vote(proposalID, voterAddress, optionIndex, gasOptions);
+    
+            // Send vote transaction
+            const tx = await contract.vote(proposalID, voterAddress, optionIndices, weights, gasOptions);
             await tx.wait();
             console.log("Voted in DD voting");
         } catch (error) {
@@ -289,7 +298,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.announceWinner(proposalID);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -318,7 +327,7 @@ export const Web3Provider = ({ children }) => {
                 amount,
                 canSend
             );
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -347,7 +356,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.vote(proposalID, voterAddress, optionIndex);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -376,7 +385,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.createProject(projectName);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -400,7 +409,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.createTask(payout, ipfsHashString, projectName);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -423,7 +432,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.claimTask(newTaskID);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -446,7 +455,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.completeTask(newTaskID);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -469,7 +478,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.updateTask(newTaskID, payout, ipfsHash);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -492,7 +501,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.submitTask(newTaskID, ipfsHash);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -517,7 +526,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.updateTask(newTaskID, payout, ipfsHashString);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -554,7 +563,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, NFTMembership.abi);
         try {
             const gasEstimate = await contract.estimateGas.mintNFT(account, membershipType);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -575,7 +584,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, NFTMembership.abi);
         try {
             const gasEstimate = await contract.estimateGas.mintDefaultNFT();
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -593,7 +602,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, NFTMembership.abi);
         try {
             const gasEstimate = await contract.estimateGas.changeMembershipType(userAddress, membershipType);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -611,7 +620,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, NFTMembership.abi);
         try {
             const gasEstimate = await contract.estimateGas.setMemberTypeImage(memberTypeName, imageURL);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -630,7 +639,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, Treasury.abi);
         try {
             const gasEstimate = await contract.estimateGas.receiveTokens(tokenAddress, amount);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -652,7 +661,7 @@ export const Web3Provider = ({ children }) => {
         const contract = getContractInstance(contractAddress, DirectDemocracyToken.abi);
         try {
             const gasEstimate = await contract.estimateGas.mint();
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -687,7 +696,7 @@ export const Web3Provider = ({ children }) => {
             const contract = getContractInstance(contractAddress, Treasury.abi);
 
             const gasEstimate = await contract.estimateGas.receiveTokens(tokenAddress, account, amount);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: ethers.utils.hexlify(20000000), // Adjust the gas limit as needed
                 gasPrice: GAS_PRICE,
@@ -758,7 +767,7 @@ export const Web3Provider = ({ children }) => {
             const contract = getContractInstance(contractAddress, QuickJoin.abi);
 
             const gasEstimate = await contract.estimateGas.quickJoinWithUser();
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -797,7 +806,7 @@ export const Web3Provider = ({ children }) => {
                 payout,
                 correctAnswerIndex
             );
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -825,7 +834,7 @@ export const Web3Provider = ({ children }) => {
 
         try {
             const gasEstimate = await contract.estimateGas.completeModule(moduleID, answer);
-            const gasLimit = gasEstimate.mul(120).div(100);
+            const gasLimit = gasEstimate.mul(127).div(100);
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,

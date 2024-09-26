@@ -42,7 +42,7 @@ const HeadingVote = ({ selectedTab, PTVoteType }) => {
         {selectedTab === 0
           ? "Equal Vote for All"
           : PTVoteType === "Hybrid" 
-          ? "Combination of Direct and Weighted Votes" 
+          ? "Combination of Direct Democracy and Particpation Voting" 
           : "Participation Based Voting"}
       </Text>
 

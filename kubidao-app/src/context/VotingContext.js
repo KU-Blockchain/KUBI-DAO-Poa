@@ -16,6 +16,7 @@ export const VotingProvider = ({ children, id }) => {
   const [democracyVotingOngoing, setDemocracyVotingOngoing] = useState([]);
   const [democracyVotingCompleted, setDemocracyVotingCompleted] = useState([]);
   const [ongoingPolls, setOngoingPolls] = useState([]);
+  const [votingType, setVotingType] = useState('Participation');
 
     const { address } = useAccount();
     const router = useRouter();
@@ -46,35 +47,76 @@ export const VotingProvider = ({ children, id }) => {
 
   useEffect(() => {
     if (data) {
-        console.log("data", data); 
+      console.log('data', data);
       const { perpetualOrganization } = data;
-      
-      setParticipationVotingCompleted(perpetualOrganization.ParticipationVoting?.proposals.filter(proposal => proposal.winningOptionIndex));
-      setHybridVotingCompleted(perpetualOrganization.HybridVoting?.proposals.filter(proposal => proposal.winningOptionIndex));
-      setDemocracyVotingCompleted(perpetualOrganization.DirectDemocracyVoting?.proposals.filter(proposal => proposal.winningOptionIndex));
-
-      const ddVoting = data.perpetualOrganization.DirectDemocracyVoting?.proposals.map(proposal => ({ ...proposal, type: 'Direct Democracy' }));
-      const hybridVoting = data.perpetualOrganization.HybridVoting?.proposals.map(proposal => ({ ...proposal, type: 'Hybrid' }));
-      const participationVoting = data.perpetualOrganization.ParticipationVoting?.proposals.map(proposal => ({ ...proposal, type: 'Participation' }));
   
+      // Set voting type to Participation or Hybrid
+      setVotingType(perpetualOrganization.ParticipationVoting ? 'Participation' : 'Hybrid');
+      
+      setParticipationVotingCompleted(
+        perpetualOrganization.ParticipationVoting?.proposals.filter(
+          proposal => proposal.winningOptionIndex !== null
+        )
+      );
+      setHybridVotingCompleted(
+        perpetualOrganization.HybridVoting?.proposals.filter(
+          proposal => proposal.winningOptionIndex !== null
+        )
+      );
+      setDemocracyVotingCompleted(
+        perpetualOrganization.DirectDemocracyVoting?.proposals.filter(
+          proposal => proposal.winningOptionIndex !== null
+        )
+      );
+  
+      // Filter out ongoing (active) proposals
+      const ddVoting = perpetualOrganization.DirectDemocracyVoting?.proposals
+        .filter(proposal => proposal.winningOptionIndex === null)  // Ongoing if no winningOptionIndex
+        .map(proposal => ({
+          votingTypeId: perpetualOrganization.DirectDemocracyVoting.id,
+          ...proposal,
+          type: 'Direct Democracy',
+        }));
+  
+      const hybridVoting = perpetualOrganization.HybridVoting?.proposals
+        .filter(proposal => proposal.winningOptionIndex === null)  // Ongoing if no winningOptionIndex
+        .map(proposal => ({
+          votingTypeId: perpetualOrganization.HybridVoting.id,
+          ...proposal,
+          type: 'Hybrid',
+          options: proposal.options.map(option => ({
+            ...option,
+            votes: option.votesPT + option.votesDD, // Combine votesPT and votesDD
+          }))
+        }));
+  
+      const participationVoting = perpetualOrganization.ParticipationVoting?.proposals
+        .filter(proposal => proposal.winningOptionIndex === null)  // Ongoing if no winningOptionIndex
+        .map(proposal => ({
+          votingTypeId: perpetualOrganization.ParticipationVoting.id,
+          ...proposal,
+          type: 'Participation',
+        }));
+  
+      // Update state for ongoing proposals
       if (ddVoting) {
-          setDemocracyVotingOngoing(ddVoting);
+        setDemocracyVotingOngoing(ddVoting);
       }
       if (hybridVoting) {
-          setHybridVotingOngoing(hybridVoting);
+        setHybridVotingOngoing(hybridVoting);
       }
       if (participationVoting) {
-          setParticipationVotingOngoing(participationVoting);
+        setParticipationVotingOngoing(participationVoting);
       }
   
-      // combine all ongoing polls into one array with type of poll check to make sure each exists first 
+      // Combine all ongoing polls into one array
       const polls = [
-          ...(ddVoting || []),
-          ...(hybridVoting || []),
-          ...(participationVoting || []),
+        ...(ddVoting || []),
+        ...(hybridVoting || []),
+        ...(participationVoting || []),
       ];
       setOngoingPolls(polls);
-      console.log("polls", polls);
+      console.log('polls', polls);
     }
   }, [data]);
 
@@ -87,7 +129,8 @@ export const VotingProvider = ({ children, id }) => {
     democracyVotingCompleted,
     loading,
     error,
-    ongoingPolls
+    ongoingPolls,
+    votingType
   }), [
     participationVotingOngoing,
     participationVotingCompleted,
@@ -98,6 +141,7 @@ export const VotingProvider = ({ children, id }) => {
     loading,
     error,
     ongoingPolls,
+    votingType
   ]);
 
   return (
