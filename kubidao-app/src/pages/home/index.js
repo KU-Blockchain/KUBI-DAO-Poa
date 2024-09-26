@@ -122,7 +122,7 @@ const Home = () => {
                   transform: "scale(1.05)",
                 }}
               >
-                Join or Login
+                Join or Connect
               </Button>
             </Link2>
           </Container>
