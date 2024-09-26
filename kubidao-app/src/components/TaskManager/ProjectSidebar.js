@@ -19,9 +19,6 @@ import TrashBin from './TrashBin';
 
 
 
-
-
-
 const glassLayerStyle = {
   position: 'absolute',
   width: '100%',

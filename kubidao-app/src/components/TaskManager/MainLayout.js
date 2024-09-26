@@ -18,15 +18,9 @@ const MainLayout = () => {
 
   } = useDataBaseContext();
 
-  
-
   const {account, createProject}= useWeb3Context()
-
   const {taskManagerContractAddress} = usePOContext();
 
-
-
-  
 
   const handleSelectProject = (projectId) => {
     console.log("selecting project",projectId);
