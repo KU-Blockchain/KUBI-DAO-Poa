@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { ethers } from 'ethers';
 import { useIPFScontext } from './ipfsContext';
-
+import { useUserContext } from './UserContext';
 import DirectDemocracyVoting from "../../abi/DirectDemocracyVoting.json";
 import ParticipationVoting from "../../abi/ParticipationVoting.json";
 import HybridVoting from "../../abi/HybridVoting.json";
@@ -25,6 +25,8 @@ export const useWeb3Context = () => {
 }
 
 export const Web3Provider = ({ children }) => {
+    const { hasMemberNFT } = useUserContext();
+    const [isConnectModalOpen, setConnectModalOpen] = useState(false);
     const [isNetworkModalOpen, setNetworkModalOpen] = useState(false);
     const [account, setAccount] = useState("0x00");
 
@@ -60,6 +62,10 @@ export const Web3Provider = ({ children }) => {
 
     const closeNetworkModal = () => {
         setNetworkModalOpen(false);
+    };
+
+    const closeConnectModal = () => {
+        setConnectModalOpen(false);
     };
 
     // Helper function to estimate gas and return gas options
@@ -357,6 +363,12 @@ export const Web3Provider = ({ children }) => {
 
     // Task Manager
     async function createProject(contractAddress, projectName) {
+        if (!hasMemberNFT) {
+            alert('You must be connected to the DAO to create a project');
+            console.error("User is not connected");
+            setConnectModalOpen(true); // TODO: get this working
+            return;
+        }
         if (!checkNetwork()) {
             return;
         }
@@ -839,7 +851,9 @@ export const Web3Provider = ({ children }) => {
             editTaskWeb3,
             signer,
             isNetworkModalOpen,
+            isConnectModalOpen,
             closeNetworkModal,
+            closeConnectModal,
             mintDDtokens,
             mintDefaultNFT,
             mintNFT,
