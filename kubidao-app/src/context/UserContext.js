@@ -19,6 +19,8 @@ export const UserProvider = ({ children }) => {
     const [userProposals, setUserProposals] = useState([]);
     const [userDataLoading, setUserDataLoading] = useState(true);
     const router = useRouter();
+
+    const [completedModules, setCompletedModules] = useState([]);
     const userDAO = "KUBI";
 
     const [account, setAccount] = useState('0x00');
@@ -52,6 +54,9 @@ export const UserProvider = ({ children }) => {
             const username = account?.userName || '';
             const userTasks = user?.tasks || [];
             const tasksCompleted = userTasks.filter(task => task.completed).length;
+
+            const completedModulesList = user?.modulesCompleted?.map(mc => mc.module) || [];
+            setCompletedModules(completedModulesList); 
 
             setGraphUsername(username);
             setHasExecNFT(hasExecNFT);
@@ -111,8 +116,9 @@ export const UserProvider = ({ children }) => {
         hasExecNFT,
         hasMemberNFT,
         claimedTasks,
+        completedModules,
         error,
-    }), [userDataLoading, userProposals, userData, graphUsername, hasExecNFT, hasMemberNFT, claimedTasks, error]);
+    }), [userDataLoading, userProposals, userData, graphUsername, hasExecNFT, hasMemberNFT, claimedTasks, completedModules, error]);
 
     return (
         <UserContext.Provider value={contextValue}>

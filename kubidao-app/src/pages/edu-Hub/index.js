@@ -118,6 +118,8 @@ const EducationHub = () => {
   const progressPercentage = totalModules ? (modulesCompletedCount / totalModules) * 100 : 0;
 
   // Sort modules: uncompleted first
+  console.log("modules", educationModules);
+  console.log("completed", completedModules);
   const sortedModules = [...educationModules].sort((a, b) => {
     const aCompleted = completedModuleIds.includes(a.id);
     const bCompleted = completedModuleIds.includes(b.id);
