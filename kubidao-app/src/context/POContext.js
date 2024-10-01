@@ -44,7 +44,9 @@ export const POProvider = ({ children }) => {
 
     const [leaderboardData, setLeaderboardData] = useState({});
     const [poContextLoading, setPoContextLoading] = useState(true);
-    const [rules, setRules] = useState(null); // Add rules state
+    const [rules, setRules] = useState(null); 
+
+    const [educationModules, setEducationModules] = useState([]);
 
     const [account, setAccount] = useState('0x00');
     const router = useRouter();
@@ -96,6 +98,10 @@ export const POProvider = ({ children }) => {
             setVotingContractAddress(po.HybridVoting?.id || po.ParticipationVoting?.id || '');
             setEducationHubAddress(po.EducationHubContract?.id || '');
 
+            // Fetch modules from EducationHubContract
+            const modules = po.EducationHubContract?.modules || [];
+            setEducationModules(modules);
+
             fetchLeaderboardData(combinedID, po.Users).then(data => {
                 setLeaderboardData(data);
             });
@@ -134,7 +140,8 @@ export const POProvider = ({ children }) => {
         error,
         leaderboardData,
         poContextLoading,
-        rules, 
+        rules,
+        educationModules, 
     }), [
         poDescription,
         poLinks,
@@ -158,6 +165,7 @@ export const POProvider = ({ children }) => {
         leaderboardData,
         poContextLoading,
         rules,
+        educationModules,
     ]);
 
     return (

@@ -66,7 +66,7 @@ const Navbar = () => {
             fontSize="xl"
             mx={"2%"}
           >
-            Edu Hub
+            Learn & Earn
           </Link>
           <LoginButton />
         </Flex>
