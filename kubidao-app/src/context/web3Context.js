@@ -35,8 +35,7 @@ export const Web3Provider = ({ children }) => {
     const provider = useEthersProvider();
     const signer = useEthersSigner();
 
-    // Define a uniform gas price of 43 Gwei
-    const GAS_PRICE = ethers.utils.parseUnits('43', 'gwei');
+    const GAS_PRICE = ethers.utils.parseUnits('47', 'gwei');
 
     useEffect(() => {
         console.log("provider: ", provider);
@@ -72,7 +71,7 @@ export const Web3Provider = ({ children }) => {
     const getGasOptions = async (contractMethod, args = []) => {
         try {
             const gasEstimate = await contractMethod(...args).then(tx => tx.estimateGas());
-            const gasLimit = gasEstimate.mul(127).div(100); // Add 27% buffer
+            const gasLimit = gasEstimate.mul(127).div(100); 
             return {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -134,7 +133,7 @@ export const Web3Provider = ({ children }) => {
 
             // Estimate gas
             const gasEstimate = await contract.estimateGas.changeUsername(username);
-            const gasLimit = gasEstimate.mul(127).div(100); // Add 27% buffer
+            const gasLimit = gasEstimate.mul(127).div(100); 
             const gasOptions = {
                 gasLimit: gasLimit,
                 gasPrice: GAS_PRICE,
@@ -1034,9 +1033,6 @@ export const Web3Provider = ({ children }) => {
         }
     }
 
-    // Treasury - Transfer Funds (Already Included Above)
-
-    // Direct Democracy Token - Mint Tokens (Already Included Above)
 
     // IPFS Add Task
     async function ipfsAddTask(taskName, taskDescription, taskLocation, difficulty, estHours, submission) {
