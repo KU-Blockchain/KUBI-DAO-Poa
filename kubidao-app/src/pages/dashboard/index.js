@@ -73,7 +73,7 @@ function generateAbbreviatedConstitution(poData) {
 const PerpetualOrgDashboard = () => {
   const { ongoingPolls } = useVotingContext();
   console.log("ongoingPolls", ongoingPolls);
-  const { poContextLoading, poDescription, poLinks, logoHash, activeTaskAmount, completedTaskAmount, ptTokenBalance, poMembers, rules } = usePOContext();
+  const { poContextLoading, poDescription, poLinks, logoHash, activeTaskAmount, completedTaskAmount, ptTokenBalance, poMembers, educationModules, rules } = usePOContext();
 
   const userDAO = "KUBI";
   const [imageURL, setImageURL] = useState({});
@@ -142,15 +142,28 @@ const PerpetualOrgDashboard = () => {
         </Center>
       ) : (
         <Box p={4}>
-          <Grid
-            color="whitesmoke"
-            templateAreas={[
-              `'orgInfo orgStats' 'tasks polls' 'leaderboard constitution'`,
-              `'orgInfo orgStats' 'tasks polls' 'leaderboard constitution'`,
-            ]}
-            templateColumns="repeat(2, 1fr)"
-            gap={4}
-          >
+            <Grid
+              color="whitesmoke"
+              templateAreas={{
+                base: `
+                  'orgInfo'
+                  'orgStats'
+                  'tasks'
+                  'polls'
+                  'leaderboard'
+                  'constitution'
+                  'learnAndEarn'
+                `,
+                md: `
+                  'orgInfo orgStats'
+                  'tasks polls'
+                  'leaderboard constitution'
+                  'learnAndEarn learnAndEarn'
+                `,
+              }}
+              templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
+              gap={4}
+            >
             <GridItem area={'orgInfo'}>
               <Box
                 w="125%"
@@ -341,7 +354,7 @@ const PerpetualOrgDashboard = () => {
                   boxShadow="lg"
                   position="relative"
                   zIndex={2}
-                  _hover={{ boxShadow: "md", transform: "scale(1.03)" }}
+                  _hover={{ boxShadow: "md", transform: "scale(1.02)" }}
                 >
                   <div style={glassLayerStyle} />
                   <VStack pb={1} align="flex-start" position="relative" borderTopRadius="2xl">
@@ -408,6 +421,63 @@ const PerpetualOrgDashboard = () => {
                 </Box>
               </Box>
             </GridItem>
+            <GridItem area={'learnAndEarn'}>
+            <Box
+              h="100%"
+              w="100%"
+              borderRadius="2xl"
+              bg="transparent"
+              boxShadow="lg"
+              position="relative"
+              zIndex={2}
+            >
+              <div style={glassLayerStyle} />
+              <VStack pb={1} align="flex-start" position="relative" borderTopRadius="2xl">
+                <div style={glassLayerStyle} />
+                <Text pl={6} fontWeight="bold" fontSize="2xl">
+                  Learn and Earn
+                </Text>
+              </VStack>
+              <Box p={4}>
+                {educationModules && educationModules.length > 0 ? (
+                  <HStack spacing={4} align="flex-start">
+                    {educationModules.slice(0,3).map((module) => (
+                      <Box
+                        key={module.id}
+                        w="100%"
+                        maxW="33%"
+                        h="auto"
+                        p={4}
+                        borderRadius="xl"
+                        bg="black"
+                        _hover={{ boxShadow: "md", transform: "scale(1.02)" }}
+                      >
+                        
+                          <Text fontSize="xl" fontWeight="bold">
+                            {module.name}
+                          </Text>
+                          <HStack  mt={6} justifyContent="space-between">
+                        {/* <Text mt={2}>{module.description}</Text> */}
+                        <Link2 href={`/modules/${module.id}`}>
+                          
+                          <Button colorScheme="teal" size="sm">
+                            Start Module
+                          </Button>
+                          
+                        </Link2>
+                        <Badge fontSize={"lg"} colorScheme="teal">{module.payout} Tokens</Badge>
+                        </HStack>
+                      </Box>
+                    ))}
+                  </HStack>
+                ) : (
+                  <Text pl={6} fontSize="lg" mt={2}>
+                    No modules available at this time.
+                  </Text>
+                )}
+              </Box>
+            </Box>
+          </GridItem>
           </Grid>
         </Box>
       )}
