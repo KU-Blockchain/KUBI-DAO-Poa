@@ -18,8 +18,9 @@ import EducationHub from '../../abi/EducationHub.json';
 import { useAccount } from "wagmi";
 import { useEthersProvider, useEthersSigner } from '@/components/ProviderConverter';
 
-// Import the notification context
 import { useNotificationContext } from './NotificationContext';
+
+import { useVotingContext } from './VotingContext';
 
 const Web3Context = createContext();
 
@@ -28,6 +29,8 @@ export const useWeb3Context = () => {
 }
 
 export const Web3Provider = ({ children }) => {
+    const {refetch} = useVotingContext();
+
     const [isNetworkModalOpen, setNetworkModalOpen] = useState(false);
     const [account, setAccount] = useState("0x00");
 
@@ -112,6 +115,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("User registered");
             updateNotification(notificationId,'User registered successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error creating new user:", error);
             updateNotification(notificationId,'Error creating new user.', 'error');
@@ -143,6 +147,8 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Username changed");
             updateNotification(notificationId,'Username changed successfully!', 'success');
+
+            refetch();
         } catch (error) {
             console.error("Error changing username:", error);
             updateNotification(notificationId,'Error changing username.', 'error');
@@ -195,6 +201,8 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Hybrid proposal created");
             updateNotification(notificationId,'Participation proposal created successfully!', 'success');
+
+            refetch();
         } catch (error) {
             console.error("Error creating hybrid proposal:", error);
             updateNotification(notificationId,'Error creating participation proposal.', 'error');
@@ -285,6 +293,8 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("DD proposal created");
             updateNotification(notificationId,'Direct Democracy proposal created successfully!', 'success');
+
+            refetch();
         } catch (error) {
             console.error("Error creating DD proposal:", error);
             updateNotification(notificationId,'Error creating Direct Democracy proposal.', 'error');
@@ -324,6 +334,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Voted in DD voting");
             updateNotification(notificationId,'Direct Democracy vote cast successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error voting in DD voting:", error);
             updateNotification(notificationId,'Error casting Direct Democracy vote.', 'error');
@@ -353,6 +364,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Winner announced");
             updateNotification(notificationId,'Winner announced successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error announcing winner:", error);
             updateNotification(notificationId,'Error announcing winner.', 'error');
@@ -459,6 +471,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Project created");
             updateNotification(notificationId,'Project created successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error creating project:", error);
             updateNotification(notificationId,'Error creating project.', 'error');
@@ -490,6 +503,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task created");
             updateNotification(notificationId,'Task created successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error creating task:", error);
             updateNotification(notificationId,'Error creating task.', 'error');
@@ -519,6 +533,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task claimed");
             updateNotification(notificationId,'Task claimed successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error claiming task:", error);
             updateNotification(notificationId,'Error claiming task.', 'error');
@@ -549,6 +564,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task completed");
             updateNotification(notificationId,'Task completed successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error completing task:", error);
             updateNotification(notificationId,'Error completing task.', 'error');
@@ -579,6 +595,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task updated");
             updateNotification(notificationId,'Task updated successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error updating task:", error);
             updateNotification(notificationId,'Error updating task.', 'error');
@@ -609,6 +626,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task submitted");
             updateNotification(notificationId,'Task submitted successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error submitting task:", error);
             updateNotification(notificationId,'Error submitting task.', 'error');
@@ -641,6 +659,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Task edited");
             updateNotification(notificationId,'Task edited successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error editing task:", error);
             updateNotification(notificationId,'Error editing task.', 'error');
@@ -690,6 +709,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("NFT minted");
             updateNotification(notificationId,'NFT minted successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error minting NFT:", error);
             updateNotification(notificationId,'Error minting NFT.', 'error');
@@ -719,6 +739,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Default NFT minted");
             updateNotification(notificationId,'Default NFT minted successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error minting default NFT:", error);
             updateNotification(notificationId,'Error minting default NFT.', 'error');
@@ -745,6 +766,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("NFT updated");
             updateNotification(notificationId,'NFT updated successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error updating NFT:", error);
             updateNotification(notificationId,'Error updating NFT.', 'error');
@@ -771,6 +793,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Image URL updated");
             updateNotification(notificationId,'Image URL updated successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error setting image URL:", error);
             updateNotification(notificationId,'Error setting image URL.', 'error');
@@ -854,6 +877,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Tokens minted");
             updateNotification(notificationId,'Tokens minted successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error minting tokens:", error);
             updateNotification(notificationId,'Error minting tokens.', 'error');
@@ -892,6 +916,7 @@ export const Web3Provider = ({ children }) => {
             console.log("Transaction mined:", receipt.transactionHash);
             console.log("User joined successfully with username:", username);
             updateNotification(notificationId,'User joined successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error during quickJoinNoUser:", error);
             updateNotification(notificationId,'Error joining user.', 'error');
@@ -938,6 +963,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("User joined with existing username");
             updateNotification(notificationId,'User joined successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error joining with existing username:", error);
             updateNotification(notificationId,'Error joining user.', 'error');
@@ -991,6 +1017,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log("Module created");
             updateNotification(notificationId,'Education module created successfully!', 'success');
+            refetch();
         } catch (error) {
             console.error("Error creating education module:", error);
             updateNotification(notificationId,'Error creating education module.', 'error');
@@ -1025,6 +1052,7 @@ export const Web3Provider = ({ children }) => {
             await tx.wait();
             console.log(`Module ${actualModuleId} completed by user.`);
             updateNotification(notificationId,'Module completed successfully!', 'success');
+            refetch();
             return true;
         } catch (error) {
             console.error(`Error completing module ${moduleId}:`, error);

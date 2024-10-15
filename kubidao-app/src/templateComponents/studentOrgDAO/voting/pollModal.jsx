@@ -47,20 +47,16 @@ const PollModal = ({
   };
 
   const vote = () => {
-    console.log("selectedOption", selectedOption);
-    console.log("selectedPoll", selectedPoll.id);
+
+    handleModalClose();
   
     // Get the number of options from the selectedPoll
     const optionIndices = selectedPoll?.options?.map((_, index) => index);
-    console.log("optionIndices", optionIndices);
   
     // Ensure weights array is correctly updated with 100% for the selected option and 0% for others
     const weights = selectedPoll?.options?.map((_, index) => {
       return index === parseInt(selectedOption) ? 100 : 0;
     });
-  
-    // Ensure the selected option is correctly treated as an integer
-    console.log("weights", weights);
   
     // Make selected poll id be the part of string before "-"
     let newPollId = selectedPoll.id.split("-")[0];

@@ -12,7 +12,6 @@ import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useProjectContext } from '@/context/ProjectContext';
 
-// ... inside TaskColumn component, before return statement
 const glassLayerStyle = {
   position: 'absolute',
   width: '100%',
@@ -22,8 +21,6 @@ const glassLayerStyle = {
   backdropFilter: 'blur(60px)',
   backgroundColor: 'rgba(0, 0, 0, .3)',
 };
-
-
 
 
 const TaskColumn = ({ title, tasks, columnId, projectName }) => {

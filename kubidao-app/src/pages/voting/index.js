@@ -366,23 +366,20 @@ const Voting = () => {
       }
     };
 
-    setLoadingSubmit(true);
+    setLoadingSubmit(false);
+    setShowCreatePoll(false);
+    setProposal(defaultProposal);
     run()
       .then(() => {
-        setLoadingSubmit(false);
-        setShowCreatePoll(false);
-        setProposal(defaultProposal);
+
       })
       .catch((error) => {
         console.error("Error creating poll:", error);
-        setLoadingSubmit(false);
-        setShowCreatePoll(false);
-        setProposal(defaultProposal);
+
       });
   };
 
 
-  
 
   return (
     <>
