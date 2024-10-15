@@ -9,8 +9,8 @@ import { useWeb3Context } from '../../context/web3Context';
 import { useDataBaseContext } from '../../context/dataBaseContext';
 import {usePOContext} from '@/context/POContext';
 import { useToast } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { useProjectContext } from '@/context/ProjectContext';
+
 
 const glassLayerStyle = {
   position: 'absolute',
@@ -23,8 +23,10 @@ const glassLayerStyle = {
 };
 
 
+
+
 const TaskColumn = ({ title, tasks, columnId, projectName }) => {
-  const router = useRouter();
+
   const { moveTask, addTask, editTask } = useTaskBoard();
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
   const {account, mintKUBIX, createTask } = useWeb3Context();
@@ -66,6 +68,8 @@ const TaskColumn = ({ title, tasks, columnId, projectName }) => {
     };
   
     const handleAddTask =  async (updatedTask) => {
+
+      console.log("adding task")
       
       const calculatePayout = (difficulty, estimatedHours) => {
     
@@ -84,16 +88,20 @@ const TaskColumn = ({ title, tasks, columnId, projectName }) => {
       if (title === 'Open') {
         let Payout= calculatePayout(updatedTask.difficulty, updatedTask.estHours);
 
+        let hexTaskCount = taskCount.toString(16); 
+        let newTaskId = `0x${hexTaskCount}-${taskManagerContractAddress}`;
+
         let newTask = {
           ...updatedTask,
-          id: `0x${taskCount}-${taskManagerContractAddress}`,
+          id: `${newTaskId}`,
           claimedBy: "",
           claimerUsername: "",
           submission: "",
           Payout: Payout
         };
-        await createTask(taskManagerContractAddress,Payout,  updatedTask.description, projectName, updatedTask.estHours,  updatedTask.difficulty, "Open", updatedTask.name,);
         moveTask(newTask, 'open', 'open', 0, " ", 0);
+        await createTask(taskManagerContractAddress,Payout,  updatedTask.description, projectName, updatedTask.estHours,  updatedTask.difficulty, "Open", updatedTask.name,);
+       
        
       }
     };
@@ -160,7 +168,7 @@ const TaskColumn = ({ title, tasks, columnId, projectName }) => {
             claimedBy: claimedByValue,
             claimerUsername: claimerUserValue,
           };
-          router.push({ pathname: `/tasks/`,  }, undefined, { shallow: true });
+          router.push({ pathname: `/tasks/` }, undefined, { shallow: true });
           await moveTask(draggedTask, item.columnId, columnId, newIndex, item.submission, claimedByValue);
           toast({
             title: "Task moved.",

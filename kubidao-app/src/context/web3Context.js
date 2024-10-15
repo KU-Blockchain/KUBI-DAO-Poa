@@ -507,6 +507,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error creating task:", error);
             updateNotification(notificationId,'Error creating task.', 'error');
+            throw error;
         }
     }
 
@@ -537,6 +538,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error claiming task:", error);
             updateNotification(notificationId,'Error claiming task.', 'error');
+            throw error;
         }
     }
 
@@ -568,6 +570,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error completing task:", error);
             updateNotification(notificationId,'Error completing task.', 'error');
+            throw error;
         }
     }
 
@@ -599,6 +602,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error updating task:", error);
             updateNotification(notificationId,'Error updating task.', 'error');
+            throw error;
         }
     }
 
@@ -630,6 +634,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error submitting task:", error);
             updateNotification(notificationId,'Error submitting task.', 'error');
+            throw error;
         }
     }
 
@@ -663,6 +668,7 @@ export const Web3Provider = ({ children }) => {
         } catch (error) {
             console.error("Error editing task:", error);
             updateNotification(notificationId,'Error editing task.', 'error');
+            throw error;
         }
     }
 
