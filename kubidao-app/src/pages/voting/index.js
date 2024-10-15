@@ -1198,6 +1198,7 @@ const Voting = () => {
           isOpen={isCompletedOpen}
           onClose={onCompletedClose}
           selectedPoll={selectedPoll}
+          voteType={votingTypeSelected}
         />
       </Container>
     )}

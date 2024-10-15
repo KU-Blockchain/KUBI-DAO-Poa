@@ -17,6 +17,7 @@ import { ethers } from "ethers";
 import CountDown from "./countDown";
 import { useRouter } from "next/router";
 
+
 const glassLayerStyle = {
   position: "absolute",
   height: "100%",
@@ -49,22 +50,17 @@ const PollModal = ({
   const vote = () => {
 
     handleModalClose();
-  
-    // Get the number of options from the selectedPoll
+
     const optionIndices = selectedPoll?.options?.map((_, index) => index);
-  
-    // Ensure weights array is correctly updated with 100% for the selected option and 0% for others
+
     const weights = selectedPoll?.options?.map((_, index) => {
       return index === parseInt(selectedOption) ? 100 : 0;
     });
-  
-    // Make selected poll id be the part of string before "-"
+
     let newPollId = selectedPoll.id.split("-")[0];
-  
-    // Pass the contractAddress, newPollId, optionIndices, and weights to handleVote
+
     handleVote(contractAddress, newPollId, optionIndices, weights);
   };
-  
 
   return (
     <Modal onOpen={onOpen} isOpen={isOpen} onClose={handleModalClose}>
@@ -115,8 +111,14 @@ const PollModal = ({
                 <VStack align="flex-start">
                   {selectedPoll?.options?.map((option, index) => (
                     <Radio size="lg" key={index} value={index}>
-                      {option.name} (Votes:{" "}
-                      {ethers.BigNumber.from(option.votes).toNumber()})
+                      {option.name}{" "}
+                      {selectedPoll.type === "Hybrid" ? (
+                        // Show percentage for Hybrid type
+                        `(Percentage: ${option.currentPercentage || 0}%)`
+                      ) : (
+                        // Fallback to showing votes, handle invalid BigNumber values
+                        `(Votes: ${option.votes ? ethers.BigNumber.from(option.votes).toNumber() : 0})`
+                      )}
                     </Radio>
                   ))}
                 </VStack>
