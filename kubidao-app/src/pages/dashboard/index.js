@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import Navbar from "@/templateComponents/studentOrgDAO/NavBar";
 import { FaLink } from 'react-icons/fa';
 import { useIPFScontext } from "@/context/ipfsContext";
+import {router } from 'next/router';
 
 function generateAbbreviatedConstitution(poData) {
   const {
@@ -71,6 +72,7 @@ function generateAbbreviatedConstitution(poData) {
 }
 
 const PerpetualOrgDashboard = () => {
+  const router = useRouter();
   const { ongoingPolls } = useVotingContext();
   console.log("ongoingPolls", ongoingPolls);
   const { poContextLoading, poDescription, poLinks, logoHash, activeTaskAmount, completedTaskAmount, ptTokenBalance, poMembers, educationModules, rules } = usePOContext();
@@ -448,6 +450,7 @@ const PerpetualOrgDashboard = () => {
                         maxW="33%"
                         h="auto"
                         p={4}
+                        onClick={() => router.push(`/edu-Hub`)}
                         borderRadius="xl"
                         bg="black"
                         _hover={{ boxShadow: "md", transform: "scale(1.02)" }}
@@ -458,7 +461,7 @@ const PerpetualOrgDashboard = () => {
                           </Text>
                           <HStack  mt={6} justifyContent="space-between">
                         {/* <Text mt={2}>{module.description}</Text> */}
-                        <Link2 href={`/modules/${module.id}`}>
+                        <Link2 href={`/edu-Hub`}>
                           
                           <Button colorScheme="teal" size="sm">
                             Start Module
