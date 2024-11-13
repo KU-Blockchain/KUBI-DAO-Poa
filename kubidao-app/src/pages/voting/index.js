@@ -595,7 +595,7 @@ const Voting = () => {
                       {displayedCompletedProposals.length > 0 ? (
                         displayedCompletedProposals.map((proposal, index) => {
                           const totalVotes = proposal.totalVotes;
-                          let WinnerName = proposal.options[proposal.winningOptionIndex].name;
+                          let WinnerName = proposal.options[proposal.winningOptionIndex]?.name || "No Winner";
 
                           //if hasWinner is false set WinnerName to "No Winner"
                           if (proposal.validWinner === false) {
@@ -913,7 +913,7 @@ const Voting = () => {
                       {displayedCompletedProposals.length > 0 ? (
                         displayedCompletedProposals.map((proposal, index) => {
                           const totalVotes = proposal.totalVotes;
-                          let WinnerName = proposal.options[proposal.winningOptionIndex].name;
+                          let WinnerName = proposal.options[proposal.winningOptionIndex]?.name || "No Winner";
 
                           //if hasWinner is false set WinnerName to "No Winner"
                          
