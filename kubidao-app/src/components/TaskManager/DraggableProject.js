@@ -5,11 +5,11 @@ import { useDrag } from 'react-dnd';
 const DraggableProject = ({ project, isSelected, onSelectProject, onDeleteProject }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'project',
-    item: { id: project.id },
+    item: { name: project.name },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        onDeleteProject(item.id);
+        onDeleteProject(item.name);
       }
     },
     collect: (monitor) => ({
@@ -29,7 +29,7 @@ const DraggableProject = ({ project, isSelected, onSelectProject, onDeleteProjec
       _hover={{ bg: "#2d86fff7", boxShadow: "md", transform: "scale(1.05)"}}
     >
       <Text fontWeight="900">
-      {project.name}
+        {project.name}
       </Text>
     </Button>
   );

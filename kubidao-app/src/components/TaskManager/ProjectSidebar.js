@@ -11,11 +11,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useWeb3Context } from '../../context/web3Context';
-import { useDataBaseContext } from '@/context/dataBaseContext';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DraggableProject from './DraggableProject';
 import TrashBin from './TrashBin';
+import { usePOContext } from '@/context/POContext';
 
 
 
@@ -33,7 +33,9 @@ const ProjectSidebar = ({ projects,selectedProject, onSelectProject, onCreatePro
   const [newProjectName, setNewProjectName] = useState('');
   const [showInput, setShowInput] = useState(false);
   let hasExecNFT= true;
-  const { handleDeleteProject } = useDataBaseContext();
+  const {deleteProject: handleDeleteProject} = useWeb3Context();
+
+  const {taskManagerContractAddress} = usePOContext();
 
 
   
@@ -50,9 +52,11 @@ const ProjectSidebar = ({ projects,selectedProject, onSelectProject, onCreatePro
       }
 
   };
-  const onDeleteProject = (projectId) => {
+  const onDeleteProject = (projectName) => {
     if(hasExecNFT){
-      handleDeleteProject(projectId);
+      console.log('Deleting project', projectName);
+      console.log('taskManagerContractAddress', taskManagerContractAddress);
+      handleDeleteProject(taskManagerContractAddress, projectName);
     }
     else{
       alert('You must be an executive to delete project');
