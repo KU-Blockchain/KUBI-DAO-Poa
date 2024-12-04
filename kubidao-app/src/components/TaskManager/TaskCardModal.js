@@ -43,7 +43,6 @@ const glassLayerStyle = {
 };
 
 const TaskCardModal = ({ task, columnId, onEditTask }) => {
-  console.log("task", task);
   const [submission, setSubmission] = useState('');
   const { moveTask, deleteTask } = useTaskBoard();
   const { hasExecNFT, hasMemberNFT, address: account, fetchUserDetails } = useUserContext();
@@ -60,11 +59,6 @@ const TaskCardModal = ({ task, columnId, onEditTask }) => {
     console.log("task id link", taskId);
     console.log("project id link", projectId);
 
-    if (projectId) {
-      const selected = projects.find((project) => project.id === projectId);
-      setSelectedProject(selected);
-    }
-
     if (taskId === task.id) {
 
           console.log("foiund from project id");
@@ -77,8 +71,16 @@ const TaskCardModal = ({ task, columnId, onEditTask }) => {
 
   const handleCloseModal = () => {
     onClose();
-    router.push({ pathname: `/tasks/` }, undefined, { shallow: true });
+
+    const { projectId } = router.query;
+    
+    router.push(
+      { pathname: `/tasks/`, query: { projectId } },
+      undefined,
+      { shallow: true }
+    );
   };
+
 
   const handleButtonClick = async () => {
     handleCloseModal();
@@ -217,7 +219,9 @@ const TaskCardModal = ({ task, columnId, onEditTask }) => {
   };
 
   const copyLinkToClipboard = () => {
-    const link = `${window.location.origin}/tasks/?task=${task.id}&projectId=${task.projectId}`;
+    const encodedProjectId = encodeURIComponent(task.projectId);
+    const link = `${window.location.origin}/tasks/?task=${task.id}&projectId=${encodedProjectId}`;
+
     navigator.clipboard.writeText(link).then(() => {
       toast({
         title: "Link copied",

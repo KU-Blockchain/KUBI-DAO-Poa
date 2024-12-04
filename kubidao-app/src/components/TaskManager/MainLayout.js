@@ -6,6 +6,7 @@ import { TaskBoardProvider } from '../../context/TaskBoardContext';
 import { useDataBaseContext} from '../../context/dataBaseContext';
 import { useWeb3Context } from '../../context/web3Context';
 import { usePOContext } from '@/context/POContext';
+import { useRouter } from 'next/router';
 
 
 
@@ -22,7 +23,11 @@ const MainLayout = () => {
   const {taskManagerContractAddress} = usePOContext();
 
 
+  const router = useRouter();
   const handleSelectProject = (projectId) => {
+
+    // push project id to url
+    router.push(`/tasks?projectId=${projectId}`);
     console.log("selecting project",projectId);
     const selected = projects.find((project) => project.id === projectId);
     setSelectedProject(selected);
