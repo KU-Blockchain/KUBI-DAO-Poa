@@ -24,7 +24,7 @@ function Deployer({ isOpen, onClose, deploymentDetails }) {
     const formattedOrgName = encodeURIComponent(
       deploymentDetails.POname.trim().toLowerCase().replace(/\s+/g, "-")
     );
-    router.push(`/${formattedOrgName}/home`);
+    router.push(`/${formattedOrgName}`);
   };
 
   return (

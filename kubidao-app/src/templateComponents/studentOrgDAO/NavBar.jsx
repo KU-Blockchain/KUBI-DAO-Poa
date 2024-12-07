@@ -17,7 +17,7 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <Box   h="100%" w="12%" pb={2} pl={10} mr={{ base: "4", md: "14" }}>
-          <Link as={NextLink} href={`/home`} passHref>
+          <Link as={NextLink} href={`/`} passHref>
             <Image
               src="/images/kubi_white_logo.png"
               alt="Your Logo"
