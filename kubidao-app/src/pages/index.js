@@ -92,6 +92,7 @@ const Home = () => {
   const{logoHash, poDescription, poLinks} = usePOContext();
 
   const router = useRouter();
+  const DaoDescription = "The KU Blockchain DAO (Decentralized Autonomous Organization) is a decentralized platform where members can earn rewards for contributing to community tasks, vote on proposals to influence community decisions. The DAO creates an open governance structure as a result, meaning anyone can earn rewards for their contributions and move up the leaderboard. The tasks members can complete include anything from voting on community initiatives, learning from modules, or completing miscellaneous tasks.";
   const userDAO = "KUBI";
 
   return (
@@ -124,24 +125,24 @@ const Home = () => {
             />
           </svg>
         </WaveBackground>
+        
         <Box
           w="70%"
           borderRadius="2xl"
-          display="flex"
-          flexDirection="column"
           bg="transparent"
           boxShadow="lg"
           position="relative"
+          align="center"
           mt="3%"
-          zIndex={1}>
+          zIndex={1}
+          >
           <div className="glass" style={glassLayerStyle} />
-          <Container centerContent>
-            
-            <Heading as="h1" size="2xl" color="white" mt="8">
-              Welcome to {userDAO} 
+          <Box mx="10%">
+            <Heading as="h1" size="xl" color="white" mt="8">
+              Welcome to the {userDAO} DAO
             </Heading>
-            <Text fontSize="md" color="white" mt={6}>
-              A Perpetual Organization built with Poa. Fully owned and controlled by the {userDAO} community itself. Learn more about how to build your own censorship-resistant, fully worker-owned organization here. Cut out middlemen and investors with Poa.
+            <Text textAlign="left" fontSize="lg" color="white" mt={6}>
+              {DaoDescription}
             </Text>
 
             <Link2 href={`/user`}>
@@ -159,11 +160,11 @@ const Home = () => {
                 Join or Login
               </Button>
             </Link2>
-          </Container>
+            </Box>
           </Box>
 
         <Box
-          w="40%"
+          w="50%"
           mt="2%"
           borderRadius="2xl"
           display="flex"
@@ -171,26 +172,27 @@ const Home = () => {
           bg="transparent"
           boxShadow="lg"
           position="relative"
+          align="center"
           zIndex={1}
         >
           <div className="glass" style={glassLayerStyle} />
-          <Container centerContent>
+          <Box mx="10%">
             <Heading mt="2%" color="ghostwhite" as="h2" size="xl">
-              About {userDAO}
+              About Poa
             </Heading>
             <Text
-              ml="8%"
-              mr="8%"
-              mt="4%"
-              mb="4%"
+              m="3%"
               color="ghostwhite"
               fontSize="lg"
               textAlign="left"
             >
-              {poDescription}
+              The KUBI DAO is a Perpetual Organization built with Poa. Fully owned and controlled by the {userDAO} community itself. Learn more about how to build your own censorship-resistant, fully worker-owned organization{" "}
+              <Link href="https://poa.community" isExternal color="teal.300">
+                here
+              </Link>. Cut out middlemen and investors with Poa.
             </Text>
             {/* add links here */}
-          </Container>
+          </Box>
         </Box>
       </VStack>
     </>
