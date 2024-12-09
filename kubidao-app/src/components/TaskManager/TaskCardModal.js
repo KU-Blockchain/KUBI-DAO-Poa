@@ -69,17 +69,24 @@ const TaskCardModal = ({ task, columnId, onEditTask }) => {
 
 }, [router.query, task.id, onOpen]);
 
-  const handleCloseModal = () => {
-    onClose();
+const handleCloseModal = () => {
+  onClose();
 
-    const { projectId } = router.query;
-    
-    router.push(
-      { pathname: `/tasks/`, query: { projectId } },
-      undefined,
-      { shallow: true }
-    );
-  };
+  const { projectId } = router.query;
+
+  // Decode first to handle any prior encoding, then encode properly
+  const safeProjectId = encodeURIComponent(decodeURIComponent(projectId));
+
+  router.push(
+    { pathname: `/tasks/`, query: { projectId: safeProjectId } },
+    undefined,
+    { shallow: true }
+  );
+};
+
+
+
+
 
 
   const handleButtonClick = async () => {

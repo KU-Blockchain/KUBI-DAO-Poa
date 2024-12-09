@@ -10,11 +10,23 @@ const TaskCard = ({ id, name, description, difficulty, estHours, index, columnId
 
   const openTask = () => {
     console.log("projectId: ", projectId);
-    router.push({
-      pathname: `/tasks/`,
-      query: { task: id, projectId: projectId },
-    }, undefined, { shallow: true });
+  
+    // Decode first to handle any prior encoding, then encode properly
+    console.log("decoded projectId: ", decodeURIComponent(projectId));
+    const safeProjectId = encodeURIComponent(decodeURIComponent(projectId));
+  
+    router.push(
+      {
+        pathname: `/tasks/`,
+        query: { task: id, projectId: safeProjectId },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
+  
+  
+  
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'task',

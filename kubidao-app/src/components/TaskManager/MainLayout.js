@@ -25,14 +25,19 @@ const MainLayout = () => {
 
   const router = useRouter();
   const handleSelectProject = (projectId) => {
-
-    // push project id to url
-    router.push(`/tasks?projectId=${projectId}`);
-    console.log("selecting project",projectId);
+    // Decode first to handle any prior encoding, then encode properly
+    const safeProjectId = encodeURIComponent(decodeURIComponent(projectId));
+  
+    router.push(`/tasks?projectId=${safeProjectId}`);
+    console.log("selecting project", safeProjectId);
+  
     const selected = projects.find((project) => project.id === projectId);
     setSelectedProject(selected);
     console.log('selected', selected);
   };
+  
+  
+  
 
 
   return (
