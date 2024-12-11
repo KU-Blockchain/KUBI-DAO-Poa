@@ -133,7 +133,7 @@ const Voting = () => {
     });
   }, [safeVotingOngoing]);
   
-  const displayedOngoingProposals = safeVotingOngoing.slice(
+  const displayedOngoingProposals = [...safeVotingOngoing].reverse().slice(
     ongoingStartIndex,
     ongoingStartIndex + proposalDisplayLimit
   );
