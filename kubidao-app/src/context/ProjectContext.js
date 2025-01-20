@@ -57,7 +57,7 @@ export const ProjectProvider = ({ children }) => {
 
       const recommendedTasks = projects
         .flatMap(project => project.tasks.map(task => ({ ...task, projectId: project.id })))
-        .filter(task => task.taskInfo.location === 'Open')
+        .filter(task => task.taskInfo?.location === 'Open')
         .sort(() => Math.random() - 0.5);
 
 

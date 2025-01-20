@@ -34,19 +34,19 @@ const AddTaskModal = ({ isOpen, onClose, onAddTask }) => {
   const handleSubmit = () => {
 
     const handleAddTask = async () => {
-      setLoading(true);
+      setDescription('');
+      setName('');
+
+      setDifficulty('easy');
+      setEstHours(.5);
+      onClose();
       await onAddTask({ name, description, difficulty, estHours });
 
 
-      setLoading(false);
-      setDescription('');
-      setName('');
     };
 
     handleAddTask();
-    setDifficulty('easy');
-    setEstHours(.5);
-    onClose();
+
   };
 
   return (
